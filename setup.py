@@ -19,5 +19,8 @@ setup(
         'console_scripts': [
             'munch=manage_lunch.cli:main',
         ],
+        'manage_lunch.command': [
+            'pick=manage_lunch.command.pick:PickCommand',
+        ],
     },
 )

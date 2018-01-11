@@ -22,5 +22,8 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     opts = add_arguments(parser).parse_args()
     optsd = vars(opts)
-    command = optsd.pop('command')
-    command(manage_lunch=ManageLunch(), **optsd).run()
+    command = optsd.pop('command', None)
+    if command is not None:
+        command(manage_lunch=ManageLunch(), **optsd).run()
+    else:
+        parser.print_help()

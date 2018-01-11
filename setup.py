@@ -15,4 +15,9 @@ setup(
     url='https://github.com/dgholz/manage_lunch',
     packages=find_packages(),
     install_requires=[],
+    entry_points={
+        'console_scripts': [
+            'munch=manage_lunch.cli:main',
+        ],
+    },
 )

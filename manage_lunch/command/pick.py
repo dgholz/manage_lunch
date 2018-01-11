@@ -1,6 +1,4 @@
 '''Pick a lunch from the allowed options'''
-from random import choice
-
 from manage_lunch.command import BaseCommand
 
 class PickCommand(BaseCommand):
@@ -14,4 +12,5 @@ class PickCommand(BaseCommand):
         return parser
 
     def run(self):
-        print(choice(self.allowed))
+        self.munch.lunch_suggestions(places=self.allowed)
+        print(self.munch.choose_a_place_to_eat())

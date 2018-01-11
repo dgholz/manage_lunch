@@ -24,6 +24,6 @@ def main():
     optsd = vars(opts)
     command = optsd.pop('command', None)
     if command is not None:
-        command(manage_lunch=ManageLunch(), **optsd).run()
+        command(munch=ManageLunch(), **optsd).run()
     else:
         parser.print_help()

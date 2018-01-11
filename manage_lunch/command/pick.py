@@ -4,8 +4,8 @@ from random import choice
 from manage_lunch.command import BaseCommand
 
 class PickCommand(BaseCommand):
-    def __init__(self, manage_lunch, *allowed):
-        super(__class__)(self, manage_lunch)
+    def __init__(self, manage_lunch, allowed):
+        super().__init__(manage_lunch)
         self.allowed = allowed
 
     @staticmethod

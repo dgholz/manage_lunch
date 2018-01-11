@@ -22,5 +22,8 @@ setup(
         'manage_lunch.command': [
             'pick=manage_lunch.command.pick:PickCommand',
         ],
+        'manage_lunch.plugin': [
+            'RandomPicker=manage_lunch.plugin.random_picker:RandomPicker',
+        ],
     },
 )

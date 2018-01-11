@@ -1,3 +1,4 @@
+'''Pick a lunch from the allowed options'''
 from random import choice
 
 from manage_lunch.command import BaseCommand

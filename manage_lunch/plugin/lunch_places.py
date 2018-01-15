@@ -1,8 +1,14 @@
 from manage_lunch.role.gather_lunch_plugin import GatherLunchPlugin
 
 class LunchPlaces(GatherLunchPlugin):
-    def __init__(self, munch, places):
+    @classmethod
+    def multivalue_aliases(cls):
+        return { 'place': 'places' }
+
+    def __init__(self, munch, *rest, **kwargs):
         super().__init__(munch)
+        places = kwargs.pop('places', [])
+        places.extend(rest)
         self.places = places
 
 

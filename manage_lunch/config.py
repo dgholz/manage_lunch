@@ -1,7 +1,11 @@
+import collections.abc
 from configparser import ConfigParser
 import os
 import os.path
 from pkg_resources import iter_entry_points
+
+import six
+from werkzeug.datastructures import MultiDict
 
 from manage_lunch import ManageLunch
 
@@ -13,7 +17,7 @@ def find_config():
     config_file = os.path.join(here, 'munch.ini')
     if not os.path.isfile(config_file):
         raise ManageLunchNoConfig(here)
-    config = ConfigParser()
+    config = ConfigParser(strict=False, dict_type=MultiDict)
     config.read(config_file)
     return config
 
@@ -30,6 +34,21 @@ def assemble_munch(sequence, plugin_classes):
         plugin_class = plugin_classes.get(title, None)
         if plugin_class is None:
             raise ManageLunchUnknownPlugin(title)
+        try:
+            aliases = plugin_class.multivalue_aliases()
+        except AttributeError:
+            aliases = {}
+
+        def scalar(val):
+            return isinstance(val, six.string_types) or not isinstance(val, collections.abc.Sequence)
+
+        for k, v in payload.items():
+            if k in aliases:
+                payload.pop(k)
+                if scalar(v):
+                    v = [v]
+                payload[aliases[k]] = v
+
         plugin = plugin_class(munch=munch, **payload)
         plugin.register()
 

@@ -17,16 +17,16 @@ def find_config():
     config.read(config_file)
     return config
 
-def make_sections(config):
+def make_sequence(config):
     for section in config.sections():
         yield section, dict(config.items(section))
 
 def get_plugins():
     return dict(list([(e.name, e.load()) for e in iter_entry_points('manage_lunch.plugin')]))
 
-def assemble_munch(sections, plugin_classes):
+def assemble_munch(sequence, plugin_classes):
     munch = ManageLunch()
-    for title, payload in sections:
+    for title, payload in sequence:
         plugin_class = plugin_classes.get(title, None)
         if plugin_class is None:
             raise ManageLunchUnknownPlugin(title)
@@ -37,6 +37,6 @@ def assemble_munch(sections, plugin_classes):
 
 def build_munch():
     config = find_config()
-    section_stream = make_sections(config)
+    sequence = make_sequence(config)
     plugin_lookup = get_plugins()
-    return assemble_munch(section_stream, plugin_lookup)
+    return assemble_munch(sequence, plugin_lookup)

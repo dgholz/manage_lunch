@@ -24,6 +24,7 @@ setup(
         ],
         'manage_lunch.plugin': [
             'RandomPicker=manage_lunch.plugin.random_picker:RandomPicker',
+            'LunchPlaces=manage_lunch.plugin.lunch_places:LunchPlaces',
         ],
     },
 )

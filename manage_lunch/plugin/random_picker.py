@@ -1,7 +1,7 @@
 import random
 
-from manage_lunch.role.plugin import ManageLunchPlugin
+from manage_lunch.role.choose_lunch import ChooseLunchPlugin
 
-class RandomPicker(ManageLunchPlugin):
+class RandomPicker(ChooseLunchPlugin):
     def pick_lunch(self):
-        self.munch.lunch = random.choice(self.munch.available)
+        self.set_lunch(random.choice(self.munch.available))
